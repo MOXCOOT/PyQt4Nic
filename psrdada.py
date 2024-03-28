@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 
 from main import MainApp
 
@@ -42,11 +43,11 @@ class PsrdadaApp(QWidget):
 
         # 创建一个按钮并添加到布局中
         self.btn = QPushButton('create buffer', self)
-        self.btn.clicked.connect(self.on_click)
+        self.btn.clicked.connect(lambda:self.on_click(1))
         vbox.addWidget(self.btn)
         # 创建一个按钮并添加到布局中
         self.btn = QPushButton('clear buffer', self)
-        self.btn.clicked.connect(self.on_click)
+        self.btn.clicked.connect(lambda:self.on_click(1))
         vbox.addWidget(self.btn)
         # 创建一个按钮并添加到布局中
         self.btn = QPushButton('delete buffer', self)
@@ -60,14 +61,28 @@ class PsrdadaApp(QWidget):
         self.setLayout(vbox)
         # 创建一个QProcess对象
         self.process = QProcess(self)
+        self.process.setProcessChannelMode(QProcess.MergedChannels)
+        self.process.errorOccurred.connect(self.handle_error)
+        self.process.started.connect(self.on_process_started)
+
+
+
         # 连接其输出信号到update_text方法
         self.process.readyReadStandardOutput.connect(lambda:self.update_text(par))
         # # 运行ping命令
         # self.process.start('ping www.baidu.com')
 
     def on_click(self,flag):
-        if flag == 0:
-            self.process.start('ping www.baidu.com')
+        if flag == 1:
+            # self.process.start('ping baidu.com')
+            # self.process.start('dada_dbmonitor')
+            self.process.start('dada_dbmonitor',['-k','c1c1'])
+            if self.process.state() == QProcess.Running:
+                print("Process has started successfully.")
+            else:
+                print("Failed to start the process.")
+            
+            # print("sucess pass")
         else:
             self.process.kill()
         # print(f'Texts are: {self.textEdit1.text()}, {self.textEdit2.text()}, and {self.textEdit3.text()}')
@@ -75,8 +90,34 @@ class PsrdadaApp(QWidget):
     def update_text(self,par):
         # 读取输出并添加到文本编辑区域
         text = self.process.readAllStandardOutput().data().decode()
-        par.textEdit.append(text)
+        par.textEdit.insertPlainText(text)
+        # 创建一个 QTextCursor
+        text_cursor = par.textEdit.textCursor()
+
+        # 移动 cursor 到文本末尾
+        text_cursor.movePosition(QTextCursor.End)
+
+        # 设置 textEdit 的 cursor 为刚刚移动的 cursor
+        par.textEdit.setTextCursor(text_cursor)
         print(text)
+
+    def handle_error(self, error):
+        if error == QProcess.FailedToStart:
+            print("Failed to start")
+        elif error == QProcess.Crashed:
+            print("Process crashed")
+        elif error == QProcess.Timedout:
+            print("Process timed out")
+        elif error == QProcess.WriteError:
+            print("Write error")
+        elif error == QProcess.ReadError:
+            print("Read Error")
+        else:
+            print("Unknown error")
+
+    def on_process_started(self):
+        print("Process has started successfully.")
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
