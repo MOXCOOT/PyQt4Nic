@@ -44,29 +44,6 @@ class PsrdadaApp(QWidget):
         HBOX.setStretch(1, 3) 
         vbox.addLayout(HBOX)
 
-        # 创建三个文本框并添加到布局中
-        # hbox1 = QHBoxLayout()
-        # label1 = QLabel('key:', self)
-        # self.textEdit1 = QLineEdit(self)
-        # hbox1.addWidget(label1)
-        # hbox1.addWidget(self.textEdit1)
-        # vbox.addLayout(hbox1)
-
-        # hbox2 = QHBoxLayout()
-        # label2 = QLabel('size of block:', self)
-        # self.textEdit2 = QLineEdit(self)
-        # hbox2.addWidget(label2)
-        # hbox2.addWidget(self.textEdit2)
-        # vbox.addLayout(hbox2)
-
-        # hbox3 = QHBoxLayout()
-        # label3 = QLabel('number of block:', self)
-        # self.textEdit3 = QLineEdit(self)
-        # hbox3.addWidget(label3)
-        # hbox3.addWidget(self.textEdit3)
-        # vbox.addLayout(hbox3)
-
-
         hIbox1 = QHBoxLayout()
         hIbox2 = QHBoxLayout()
         # 创建一个按钮并添加到布局中
@@ -75,15 +52,15 @@ class PsrdadaApp(QWidget):
         hIbox1.addWidget(self.btn)
         # 创建一个按钮并添加到布局中
         self.btn = QPushButton('clear buffer', self)
-        self.btn.clicked.connect(lambda:self.on_click(1))
+        self.btn.clicked.connect(lambda:self.on_click(0))
         hIbox1.addWidget(self.btn)
         # 创建一个按钮并添加到布局中
         self.btn = QPushButton('delete buffer', self)
-        self.btn.clicked.connect(lambda:self.on_click(1))
+        self.btn.clicked.connect(lambda:self.on_click(2))
         hIbox2.addWidget(self.btn)
         # 创建一个按钮并添加到布局中
         self.btn = QPushButton('monitor buffer', self)
-        self.btn.clicked.connect(lambda:self.on_click(0))
+        self.btn.clicked.connect(lambda:self.on_click(3))
         hIbox2.addWidget(self.btn)
 
         vbox.addLayout(hIbox1)
@@ -104,18 +81,26 @@ class PsrdadaApp(QWidget):
         # self.process.start('ping www.baidu.com')
 
     def on_click(self,flag):
+        KEY = self.textEdit1.text()
+        B = self.textEdit2.text()
+        N = self.textEdit3.text()
         if flag == 1:
             # self.process.start('ping baidu.com')
             # self.process.start('dada_dbmonitor')
-            self.process.start('dada_dbmonitor',['-k','c1c1'])
+            self.process.start('dada_db',['-k',KEY,'-n',N,'-b',B])
             if self.process.state() == QProcess.Running:
                 print("Process has started successfully.")
             else:
                 print("Failed to start the process.")
             
             # print("sucess pass")
+        elif flag == 2:
+             self.process.start('dada_db',['-k',KEY,'-d'])
+        elif flag == 3:
+            self.process.start('dada_dbmonitor',['-k',KEY])
         else:
             self.process.kill()
+            
         # print(f'Texts are: {self.textEdit1.text()}, {self.textEdit2.text()}, and {self.textEdit3.text()}')
             
     def update_text(self,par):
