@@ -2,6 +2,7 @@ import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QTextEdit
 from PyQt5.QtCore import QProcess
 
+
 class MyApp(QWidget):
     def __init__(self):
         super().__init__()
@@ -9,7 +10,7 @@ class MyApp(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle('MyApp') 
+        self.setWindowTitle("MyApp")
         self.resize(400, 300)
 
         vbox = QVBoxLayout()
@@ -25,14 +26,15 @@ class MyApp(QWidget):
         # 连接其输出信号到update_text方法
         self.process.readyReadStandardOutput.connect(self.update_text)
         # 运行ping命令
-        self.process.start('ping www.baidu.com')
+        self.process.start("ping www.baidu.com")
 
     def update_text(self):
         # 读取输出并添加到文本编辑区域
         text = self.process.readAllStandardOutput().data().decode()
         self.textEdit.append(text)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     ex = MyApp()
     ex.show()

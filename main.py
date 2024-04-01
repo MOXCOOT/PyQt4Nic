@@ -6,9 +6,7 @@ from psrdada import *
 from receiver import *
 
 
-
 class MainApp(QWidget):
-
     _instance = None
 
     def __new__(cls, *args, **kwargs):
@@ -16,12 +14,9 @@ class MainApp(QWidget):
             cls._instance = super(MainApp, cls).__new__(cls, *args, **kwargs)
         return cls._instance
 
-
     def __init__(self):
         super().__init__()
 
-        
-        
         self.psrdadaApp = PsrdadaApp(self)
         myApp = MyApp()
         self.textEdit1 = QTextEdit()
@@ -52,26 +47,20 @@ class MainApp(QWidget):
         vbox.addLayout(hbox2)
 
         self.setLayout(vbox)
-        self.setWindowTitle('Receiver')
+        self.setWindowTitle("Receiver")
         self.center()
-        self.resize(1000,618)
+        self.resize(1000, 618)
 
-
-
-
-        
         # splitterIn = QSplitter(Qt.Vertical)
         # splitterIn.addWidget(myApp)
-        # splitterIn.addWidget(self.textEdit2) 
+        # splitterIn.addWidget(self.textEdit2)
         # # myApp.setMinimumHeight(100)
         # splitterIn.setSizes([100, 300])
 
         # splitterR = QSplitter(Qt.Vertical)
         # splitterR.addWidget(self.psrdadaApp)
-        # splitterR.addWidget(self.textEdit1) 
+        # splitterR.addWidget(self.textEdit1)
         # splitterR.setSizes([100, 300])
-
-
 
         # splitter = QSplitter(Qt.Horizontal)
         # splitter.addWidget(splitterR)
@@ -82,14 +71,13 @@ class MainApp(QWidget):
 
         # # hbox.addWidget(splitterIn)
         # # hbox.addWidget(psrdadaApp)
-        
+
         # hbox.addWidget(splitter)
 
         # self.setLayout(hbox)
         # self.setWindowTitle('Receiver')
         # self.center()
         # self.resize(1000,618)
-
 
     def center(self):
         qr = self.frameGeometry()
@@ -98,9 +86,8 @@ class MainApp(QWidget):
         self.move(qr.topLeft())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app = QApplication(sys.argv)
     ex = MainApp()
     ex.show()
     sys.exit(app.exec_())
-
