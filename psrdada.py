@@ -8,6 +8,7 @@ from main import MainApp
 
 class PsrdadaApp(QWidget):
     text = ""
+
     def __init__(self, parent=None):
         super().__init__(parent)
         # print(type(parent))
@@ -70,7 +71,7 @@ class PsrdadaApp(QWidget):
         vbox.addLayout(hIbox2)
 
         self.setLayout(vbox)
-        
+
         # 创建一个QProcess对象
         self.process = QProcess(self)
         self.process.setProcessChannelMode(QProcess.MergedChannels)
@@ -84,7 +85,11 @@ class PsrdadaApp(QWidget):
     def on_click(self, flag):
         KEY = self.textEdit1.text() if self.textEdit1.text() != "" else DEFULT_KEY
         B = self.textEdit2.text() if self.textEdit2.text() != "" else DEFULT_BLOCK_SIZE
-        N = self.textEdit3.text() if self.textEdit3.text() != "" else DEFULT_BLOCK_NUMBER
+        N = (
+            self.textEdit3.text()
+            if self.textEdit3.text() != ""
+            else DEFULT_BLOCK_NUMBER
+        )
         if flag == 1:
             self.process.start("dada_db", ["-k", KEY, "-n", N, "-b", B])
         elif flag == 2:
@@ -107,22 +112,8 @@ class PsrdadaApp(QWidget):
         # 读取输出并添加到文本编辑区域
         text = self.process.readAllStandardOutput().data().decode()
         par.textEdit2.insertPlainText(text)
-        
-        print(text)
 
-    # def handle_error(self, error):
-    #     if error == QProcess.FailedToStart:
-    #         print("Failed to start")
-    #     elif error == QProcess.Crashed:
-    #         print("Process crashed")
-    #     elif error == QProcess.Timedout:
-    #         print("Process timed out")
-    #     elif error == QProcess.WriteError:
-    #         print("Write error")
-    #     elif error == QProcess.ReadError:
-    #         print("Read Error")
-    #     else:
-    #         print("Unknown error")
+        print(text)
 
     def on_process_started(self):
         print("Process has started successfully.")

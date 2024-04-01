@@ -13,7 +13,7 @@ class MyApp(QWidget):
         # self.resize(300, 300)
 
         vbox = QVBoxLayout()
-        
+
         hbox1 = QHBoxLayout()
         label1 = QLabel("CPU core:", self)
         self.combo1 = QComboBox(self)

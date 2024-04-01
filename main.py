@@ -23,18 +23,18 @@ class MainApp(QWidget):
         self.textEdit2.setFont(font)
         self.textEdit1.setReadOnly(True)
         self.textEdit2.setReadOnly(True)
-        
+
         hbox1 = QHBoxLayout()
         hbox1.addWidget(myApp)
         hbox1.addWidget(self.psrdadaApp)
-        hbox1.setStretch(0, LRratio['left'])
-        hbox1.setStretch(1, LRratio['right'])
+        hbox1.setStretch(0, LRratio["left"])
+        hbox1.setStretch(1, LRratio["right"])
 
         hbox2 = QHBoxLayout()
         hbox2.addWidget(self.textEdit1)
         hbox2.addWidget(self.textEdit2)
-        hbox2.setStretch(0, LRratio['left'])
-        hbox2.setStretch(1, LRratio['right'])
+        hbox2.setStretch(0, LRratio["left"])
+        hbox2.setStretch(1, LRratio["right"])
 
         vbox = QVBoxLayout()
         vbox.addLayout(hbox1)
