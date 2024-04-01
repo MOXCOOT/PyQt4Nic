@@ -53,19 +53,19 @@ class PsrdadaApp(QWidget):
 
         hIbox1 = QHBoxLayout()
         hIbox2 = QHBoxLayout()
-        
+
         self.btn = QPushButton("create buffer", self)
         self.btn.clicked.connect(lambda: self.on_click(1))
         hIbox1.addWidget(self.btn)
-        
+
         self.btn = QPushButton("clear buffer", self)
         self.btn.clicked.connect(lambda: self.on_click(0))
         hIbox1.addWidget(self.btn)
-        
+
         self.btn = QPushButton("delete buffer", self)
         self.btn.clicked.connect(lambda: self.on_click(2))
         hIbox2.addWidget(self.btn)
-        
+
         self.btn = QPushButton("monitor buffer", self)
         self.btn.clicked.connect(lambda: self.on_click(3))
         hIbox2.addWidget(self.btn)
