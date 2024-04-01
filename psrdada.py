@@ -75,9 +75,11 @@ class PsrdadaApp(QWidget):
         self.process = QProcess(self)
         self.process.setProcessChannelMode(QProcess.MergedChannels)
         # self.process.errorOccurred.connect(self.handle_error)
-        self.process.started.connect(self.on_process_started)
+        self.process.started.connect(on_process_started)
         # 连接其输出信号到update_text方法
-        self.process.readyReadStandardOutput.connect(lambda: self.update_text(par))
+        self.process.readyReadStandardOutput.connect(
+            lambda: update_text(self, par.textEdit2)
+        )
         # # 运行ping命令
         # self.process.start('ping www.baidu.com')
 
@@ -97,25 +99,6 @@ class PsrdadaApp(QWidget):
             self.process.start("dada_dbmonitor", ["-k", KEY])
         else:
             self.process.kill()
-
-    def update_text(self, par):
-        # 创建一个 QTextCursor
-        text_cursor = par.textEdit2.textCursor()
-
-        # 移动 cursor 到文本末尾
-        text_cursor.movePosition(QTextCursor.End)
-
-        # 设置 textEdit 的 cursor 为刚刚移动的 cursor
-        par.textEdit2.setTextCursor(text_cursor)
-
-        # 读取输出并添加到文本编辑区域
-        text = self.process.readAllStandardOutput().data().decode()
-        par.textEdit2.insertPlainText(text)
-
-        print(text)
-
-    def on_process_started(self):
-        print("Process has started successfully.")
 
 
 if __name__ == "__main__":

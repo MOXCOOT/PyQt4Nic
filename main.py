@@ -12,20 +12,17 @@ class MainApp(QWidget):
         super().__init__()
 
         self.psrdadaApp = PsrdadaApp(self)
-        myApp = MyApp()
+        self.myApp = MyApp(self)
         self.textEdit1 = QTextEdit()
         self.textEdit2 = QTextEdit()
 
-        font = QFont()
-        font.setFamily("Courier")  # 设置字体家族
-        font.setPointSize(10)  # 设置字体大小
         self.textEdit1.setFont(font)  # 应用字体到文本框
         self.textEdit2.setFont(font)
         self.textEdit1.setReadOnly(True)
         self.textEdit2.setReadOnly(True)
 
         hbox1 = QHBoxLayout()
-        hbox1.addWidget(myApp)
+        hbox1.addWidget(self.myApp)
         hbox1.addWidget(self.psrdadaApp)
         hbox1.setStretch(0, LRratio["left"])
         hbox1.setStretch(1, LRratio["right"])
@@ -41,9 +38,9 @@ class MainApp(QWidget):
         vbox.addLayout(hbox2)
 
         self.setLayout(vbox)
-        self.setWindowTitle("Receiver")
+        self.setWindowTitle(DEFULT_WINDOWTITLE)
         self.center()
-        self.resize(1000, 618)
+        self.resize(DEFULT_WINDOW_SIZE["width"], DEFULT_WINDOW_SIZE["height"])
 
     def center(self):
         qr = self.frameGeometry()
