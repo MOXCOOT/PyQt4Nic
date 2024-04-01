@@ -11,7 +11,6 @@ class PsrdadaApp(QWidget):
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        # print(type(parent))
         self.initUI(parent)
 
     def initUI(self, par):
