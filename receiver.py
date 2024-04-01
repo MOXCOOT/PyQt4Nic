@@ -6,15 +6,14 @@ from psrdada import *
 class MyApp(QWidget):
     def __init__(self):
         super().__init__()
-
         self.initUI()
 
     def initUI(self):
-        self.setWindowTitle("Receiver Parameters")
-        self.resize(300, 300)
+        # self.setWindowTitle("Receiver Parameters")
+        # self.resize(300, 300)
 
         vbox = QVBoxLayout()
-
+        
         hbox1 = QHBoxLayout()
         label1 = QLabel("CPU core:", self)
         self.combo1 = QComboBox(self)
@@ -33,13 +32,6 @@ class MyApp(QWidget):
 
         self.btn = QPushButton("Confirm", self)
         self.btn.clicked.connect(self.on_click)
-
-        # vboxwidget = QWidget()
-        # vboxwidget.setLayout(vbox)
-
-        # hbox = QHBoxLayout()
-        # hbox.addWidget(vboxwidget)
-        # hbox.addWidget(self.btn)
 
         vbox.addWidget(self.btn)
 
