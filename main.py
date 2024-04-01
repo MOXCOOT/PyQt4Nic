@@ -24,33 +24,71 @@ class MainApp(QWidget):
         
         self.psrdadaApp = PsrdadaApp(self)
         myApp = MyApp()
-        self.textEdit = QTextEdit()
+        self.textEdit1 = QTextEdit()
+        self.textEdit2 = QTextEdit()
 
-        self.textEdit.setReadOnly(True)
-        
-        splitterIn = QSplitter(Qt.Vertical)
-        splitterIn.addWidget(myApp)
-        splitterIn.addWidget(self.textEdit) 
-        # myApp.setMinimumHeight(100)
-        splitterIn.setSizes([100, 300])
+        font = QFont()
+        font.setFamily("Courier")  # 设置字体家族
+        font.setPointSize(10)  # 设置字体大小
+        self.textEdit1.setFont(font)  # 应用字体到文本框
+        self.textEdit2.setFont(font)
+        self.textEdit1.setReadOnly(True)
+        self.textEdit2.setReadOnly(True)
 
+        hbox1 = QHBoxLayout()
+        hbox1.addWidget(myApp)
+        hbox1.addWidget(self.psrdadaApp)
+        hbox1.setStretch(0, 2)  # psrdadaApp占据3/4的空间
+        hbox1.setStretch(1, 3)  # myApp占据1/4的空间
 
-        splitter = QSplitter(Qt.Horizontal)
-        splitter.addWidget(splitterIn)
-        splitter.addWidget(self.psrdadaApp)
-        splitter.setSizes([300, 100])
+        hbox2 = QHBoxLayout()
+        hbox2.addWidget(self.textEdit1)
+        hbox2.addWidget(self.textEdit2)
+        hbox2.setStretch(0, 2)  # psrdadaApp占据3/4的空间
+        hbox2.setStretch(1, 3)  # myApp占据1/4的空间
 
-        hbox = QHBoxLayout(self)
+        vbox = QVBoxLayout()
+        vbox.addLayout(hbox1)
+        vbox.addLayout(hbox2)
 
-        # hbox.addWidget(splitterIn)
-        # hbox.addWidget(psrdadaApp)
-        
-        hbox.addWidget(splitter)
-
-        self.setLayout(hbox)
+        self.setLayout(vbox)
         self.setWindowTitle('Receiver')
         self.center()
-        self.resize(800,400)
+        self.resize(1000,618)
+
+
+
+
+        
+        # splitterIn = QSplitter(Qt.Vertical)
+        # splitterIn.addWidget(myApp)
+        # splitterIn.addWidget(self.textEdit2) 
+        # # myApp.setMinimumHeight(100)
+        # splitterIn.setSizes([100, 300])
+
+        # splitterR = QSplitter(Qt.Vertical)
+        # splitterR.addWidget(self.psrdadaApp)
+        # splitterR.addWidget(self.textEdit1) 
+        # splitterR.setSizes([100, 300])
+
+
+
+        # splitter = QSplitter(Qt.Horizontal)
+        # splitter.addWidget(splitterR)
+        # splitter.addWidget(splitterIn)
+        # splitter.setSizes([300, 100])
+
+        # hbox = QHBoxLayout(self)
+
+        # # hbox.addWidget(splitterIn)
+        # # hbox.addWidget(psrdadaApp)
+        
+        # hbox.addWidget(splitter)
+
+        # self.setLayout(hbox)
+        # self.setWindowTitle('Receiver')
+        # self.center()
+        # self.resize(1000,618)
 
 
     def center(self):

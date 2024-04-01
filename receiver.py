@@ -34,16 +34,16 @@ class MyApp(QWidget):
         self.btn = QPushButton('Confirm', self)
         self.btn.clicked.connect(self.on_click)
 
-        vboxwidget = QWidget()
-        vboxwidget.setLayout(vbox)
+        # vboxwidget = QWidget()
+        # vboxwidget.setLayout(vbox)
 
-        hbox = QHBoxLayout()
-        hbox.addWidget(vboxwidget)
-        hbox.addWidget(self.btn)
+        # hbox = QHBoxLayout()
+        # hbox.addWidget(vboxwidget)
+        # hbox.addWidget(self.btn)
 
-        # vbox.addWidget(self.btn)
+        vbox.addWidget(self.btn)
 
-        self.setLayout(hbox)
+        self.setLayout(vbox)
 
     def on_click(self):
         print(f'Selected items are: {self.combo1.currentText()} and {self.combo2.currentText()}')

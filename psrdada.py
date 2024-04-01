@@ -19,44 +19,75 @@ class PsrdadaApp(QWidget):
 
         vbox = QVBoxLayout()
 
-        # 创建三个文本框并添加到布局中
-        hbox1 = QHBoxLayout()
+        HBOX = QHBoxLayout()
+
+        vIbox1 = QVBoxLayout()
         label1 = QLabel('key:', self)
-        self.textEdit1 = QLineEdit(self)
-        hbox1.addWidget(label1)
-        hbox1.addWidget(self.textEdit1)
-        vbox.addLayout(hbox1)
-
-        hbox2 = QHBoxLayout()
         label2 = QLabel('size of block:', self)
-        self.textEdit2 = QLineEdit(self)
-        hbox2.addWidget(label2)
-        hbox2.addWidget(self.textEdit2)
-        vbox.addLayout(hbox2)
-
-        hbox3 = QHBoxLayout()
         label3 = QLabel('number of block:', self)
+        vIbox1.addWidget(label1)
+        vIbox1.addWidget(label2)
+        vIbox1.addWidget(label3)
+        
+        vIbox2 = QVBoxLayout()
+        self.textEdit1 = QLineEdit(self)
+        self.textEdit2 = QLineEdit(self)
         self.textEdit3 = QLineEdit(self)
-        hbox3.addWidget(label3)
-        hbox3.addWidget(self.textEdit3)
-        vbox.addLayout(hbox3)
+        vIbox2.addWidget(self.textEdit1)
+        vIbox2.addWidget(self.textEdit2)
+        vIbox2.addWidget(self.textEdit3)
 
+
+        HBOX.addLayout(vIbox1)
+        HBOX.addLayout(vIbox2)
+        HBOX.setStretch(0, 2) 
+        HBOX.setStretch(1, 3) 
+        vbox.addLayout(HBOX)
+
+        # 创建三个文本框并添加到布局中
+        # hbox1 = QHBoxLayout()
+        # label1 = QLabel('key:', self)
+        # self.textEdit1 = QLineEdit(self)
+        # hbox1.addWidget(label1)
+        # hbox1.addWidget(self.textEdit1)
+        # vbox.addLayout(hbox1)
+
+        # hbox2 = QHBoxLayout()
+        # label2 = QLabel('size of block:', self)
+        # self.textEdit2 = QLineEdit(self)
+        # hbox2.addWidget(label2)
+        # hbox2.addWidget(self.textEdit2)
+        # vbox.addLayout(hbox2)
+
+        # hbox3 = QHBoxLayout()
+        # label3 = QLabel('number of block:', self)
+        # self.textEdit3 = QLineEdit(self)
+        # hbox3.addWidget(label3)
+        # hbox3.addWidget(self.textEdit3)
+        # vbox.addLayout(hbox3)
+
+
+        hIbox1 = QHBoxLayout()
+        hIbox2 = QHBoxLayout()
         # 创建一个按钮并添加到布局中
         self.btn = QPushButton('create buffer', self)
         self.btn.clicked.connect(lambda:self.on_click(1))
-        vbox.addWidget(self.btn)
+        hIbox1.addWidget(self.btn)
         # 创建一个按钮并添加到布局中
         self.btn = QPushButton('clear buffer', self)
         self.btn.clicked.connect(lambda:self.on_click(1))
-        vbox.addWidget(self.btn)
+        hIbox1.addWidget(self.btn)
         # 创建一个按钮并添加到布局中
         self.btn = QPushButton('delete buffer', self)
         self.btn.clicked.connect(lambda:self.on_click(1))
-        vbox.addWidget(self.btn)
+        hIbox2.addWidget(self.btn)
         # 创建一个按钮并添加到布局中
         self.btn = QPushButton('monitor buffer', self)
         self.btn.clicked.connect(lambda:self.on_click(0))
-        vbox.addWidget(self.btn)
+        hIbox2.addWidget(self.btn)
+
+        vbox.addLayout(hIbox1)
+        vbox.addLayout(hIbox2)
 
         self.setLayout(vbox)
         # 创建一个QProcess对象
@@ -88,17 +119,19 @@ class PsrdadaApp(QWidget):
         # print(f'Texts are: {self.textEdit1.text()}, {self.textEdit2.text()}, and {self.textEdit3.text()}')
             
     def update_text(self,par):
-        # 读取输出并添加到文本编辑区域
-        text = self.process.readAllStandardOutput().data().decode()
-        par.textEdit.insertPlainText(text)
         # 创建一个 QTextCursor
-        text_cursor = par.textEdit.textCursor()
+        text_cursor = par.textEdit2.textCursor()
 
         # 移动 cursor 到文本末尾
         text_cursor.movePosition(QTextCursor.End)
 
         # 设置 textEdit 的 cursor 为刚刚移动的 cursor
-        par.textEdit.setTextCursor(text_cursor)
+        par.textEdit2.setTextCursor(text_cursor)
+
+        # 读取输出并添加到文本编辑区域
+        text = self.process.readAllStandardOutput().data().decode()
+        par.textEdit2.insertPlainText(text)
+
         print(text)
 
     def handle_error(self, error):
