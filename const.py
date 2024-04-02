@@ -29,5 +29,5 @@ def update_text(self, edit):
     print(text)
 
 
-def on_process_started(self):
+def on_process_started():
     print("Process has started successfully.")
