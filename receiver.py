@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from psrdada import *
 from const import *
+import psrdada
 
 
 class MyApp(QWidget):
@@ -28,10 +29,15 @@ class MyApp(QWidget):
         hbox2.addWidget(self.combo2)
         vbox.addLayout(hbox2)
 
-        self.btn = QPushButton("confirm", self)
-        self.btn.clicked.connect(self.on_click)
+        hbox3 = QHBoxLayout()
+        self.btnL = QPushButton("start", self)
+        self.btnL.clicked.connect(lambda: self.on_click(1))
+        self.btnR = QPushButton("finish", self)
+        self.btnR.clicked.connect(lambda: self.on_click(0))
+        hbox3.addWidget(self.btnL)
+        hbox3.addWidget(self.btnR)
 
-        vbox.addWidget(self.btn)
+        vbox.addLayout(hbox3)
 
         self.setLayout(vbox)
 
@@ -45,11 +51,13 @@ class MyApp(QWidget):
             lambda: update_text(self, par.textEdit1)
         )
 
-    def on_click(self):
-        self.process.start(
-            "sudo ./build/udpdadav2 -c 1 --socket-mem 128 --proc-type auto --file-prefix pg1 -w 84:00.1 -- -p 1 -k dada -T 524288"
-        )
-        # self.process.start("tree")
-        # print(
-        #     f"Selected items are: {self.combo1.currentText()} and {self.combo2.currentText()}"
-        # )
+    def on_click(self, flag):
+        # print(DEFULT_KEY)
+        # global KEY
+        if flag == 1:
+            self.process.start(
+                f"sudo /home/idolsinger/mox/2-FAST_CODE/udpdadav2/build/udpdadav2 -c {self.combo1.currentText()} --socket-mem 128 --proc-type auto --file-prefix pg1 -- -p {self.combo2.currentText()} -k {psrdada.KEY}"
+                # "sudo ./home/idolsinger/mox/2-FAST_CODE/udpdadav2/build/udpdadav2 -c 1 --socket-mem 128 --proc-type auto --file-prefix pg1 -w 84:00.1 -- -p 1 -k dada -T 524288"
+            )
+        else:
+            self.process.kill()

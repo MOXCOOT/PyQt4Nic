@@ -4,6 +4,11 @@ from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from const import *
 from main import MainApp
+import psrdada
+
+KEY = DEFULT_KEY
+B = DEFULT_BLOCK_SIZE
+N = DEFULT_BLOCK_NUMBER
 
 
 class PsrdadaApp(QWidget):
@@ -84,6 +89,8 @@ class PsrdadaApp(QWidget):
         # self.process.start('ping www.baidu.com')
 
     def on_click(self, flag):
+        global KEY, B, N
+
         KEY = self.textEdit1.text() if self.textEdit1.text() != "" else DEFULT_KEY
         B = self.textEdit2.text() if self.textEdit2.text() != "" else DEFULT_BLOCK_SIZE
         N = (
