@@ -56,7 +56,8 @@ class MyApp(QWidget):
         # global KEY
         if flag == 1:
             self.process.start(
-                f"sudo /home/idolsinger/mox/2-FAST_CODE/udpdadav2/build/udpdadav2 -c {self.combo1.currentText()} --socket-mem 128 --proc-type auto --file-prefix pg1 -- -p {self.combo2.currentText()} -k {psrdada.KEY}"
+                "bash /home/idolsinger/mox/2-FAST_CODE/udpdadav2/run.sh"
+                # f"sudo /home/idolsinger/mox/2-FAST_CODE/udpdadav2/build/udpdadav2 -c {self.combo1.currentText()} --socket-mem 128 --proc-type auto --file-prefix pg1 -- -p {self.combo2.currentText()} -k {psrdada.KEY}"
                 # "sudo ./home/idolsinger/mox/2-FAST_CODE/udpdadav2/build/udpdadav2 -c 1 --socket-mem 128 --proc-type auto --file-prefix pg1 -w 84:00.1 -- -p 1 -k dada -T 524288"
             )
         else:
